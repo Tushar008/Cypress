@@ -1,0 +1,23 @@
+{
+  "name": "cypress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "clean:reports": "rimraf cypress/reports",
+    "pretest": "npm run clean:reports",
+    "test": "npx cypress open",
+    "run:report": "npx cypress run --spec \"cypress/e2e/sauce-demo/purchase.cy.js\"",
+    "posttest": "node generateReport.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^15.6.0",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.3.2",
+    "rimraf": "^6.1.0"
+  }
+}
