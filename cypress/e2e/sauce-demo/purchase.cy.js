@@ -12,7 +12,7 @@ describe('SauceDemo E2E Purchase Flow', () => {
         cy.clearLocalStorage();
     });
 
-    it.only('sorts prices, adds the most expensive item, and then removes it', () => {
+    it.only('sorts prices, adds the most expensive item, and then removes it and perform checkout', () => {
         // Login to saucedemo
         pages.loginPage.visit();
         pages.loginPage.login(Cypress.env('SAUCE_USERNAME'), Cypress.env('SAUCE_PASSWORD'));

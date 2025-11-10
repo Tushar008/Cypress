@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-11-09T18:05:16.206Z",
-    "end": "2025-11-09T18:05:23.439Z",
-    "duration": 7233,
+    "start": "2025-11-10T10:34:19.736Z",
+    "end": "2025-11-10T10:34:27.141Z",
+    "duration": 7405,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "fe9ed370-0bbb-46ce-9241-5156dd030e90",
+      "uuid": "6bdcc8a4-dd19-4730-8da6-d4253ffbe3dd",
       "title": "",
       "fullFile": "cypress\\e2e\\sauce-demo\\purchase.cy.js",
       "file": "cypress\\e2e\\sauce-demo\\purchase.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "cb75f0be-2e7a-463e-9ee8-ccf87cc447ac",
+          "uuid": "c18ba1e3-b6e5-4a2f-8893-6e50942ce2b9",
           "title": "SauceDemo E2E Purchase Flow",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "sorts prices, adds the most expensive item, and then removes it",
               "fullTitle": "SauceDemo E2E Purchase Flow sorts prices, adds the most expensive item, and then removes it",
               "timedOut": null,
-              "duration": 5440,
+              "duration": 5525,
               "state": "passed",
               "speed": "medium",
               "pass": true,
@@ -47,20 +47,20 @@
               "context": null,
               "code": "// Login to saucedemo\npages.loginPage.visit();\npages.loginPage.login(Cypress.env('SAUCE_USERNAME'), Cypress.env('SAUCE_PASSWORD'));\n// sort prices with 'high to low'\npages.inventoryPage.sortBy('Price (high to low)');\n// Verify prices are sorted on the page\npages.inventoryPage.getAllPrices().then(prices => {\n  cy.wrap(prices).as('prices');\n  const sorted = [...prices].sort((a, b) => b - a);\n  cy.wrap(prices).should('deep.equal', sorted);\n});\npages.inventoryPage.addAllItemsToCart();\n// verify total count of the prices (this will also confirm total number of items in cart)\ncy.get('@prices').then(prices => {\n  const total = prices.length;\n  // verify cart icon shows correct count of total item available in cart\n  pages.inventoryPage.getShoppingCartCount().should('eq', total);\n  // Go to cart and verify count\n  pages.inventoryPage.goToCart();\n  pages.cartPage.getCartItemsCount().should('eq', total);\n  // Remove the most expensive item (first item after sorting)\n  pages.inventoryPage.getMostExpensiveName().then(mostExpensiveName => {\n    pages.cartPage.removeItemByName(mostExpensiveName);\n    // verify cart has one less item\n    pages.cartPage.getCartItemsCount().should('eq', total - 1);\n    //  cart icon shows total-1 (or count icon should be absent if zero)\n    if (total - 1 > 0) {\n      pages.inventoryPage.getShoppingCartCount().should('eq', total - 1);\n    } else {\n      cy.get('.shopping_cart_badge').should('not.exist');\n    }\n    // Save cart total for verification at checkout\n    pages.cartPage.saveCartTotal();\n    // Continue to checkout\n    pages.cartPage.proceedToCheckout();\n    // Fill shipping information\n    pages.checkoutPage.fillShippingInfo('Trushar', 'Patel', '12345');\n    // Complete checkout and verify the total matches what was saved\n    pages.checkoutPage.completeCheckoutAndVerifyAmount();\n    // Take screenshot of the confirmation screen\n    cy.get('.complete-header').should('be.visible').then(() => {\n      cy.screenshot('order-confirmation', {\n        capture: 'viewport',\n        overwrite: true\n      });\n    });\n    // Additional verification to ensure we capture the full confirmation state\n    cy.wait(1000); // Small wait to ensure animations complete\n    cy.get('.complete-header').should('have.text', 'Thank you for your order!');\n    cy.get('.complete-text').should('be.visible');\n  });\n});",
               "err": {},
-              "uuid": "e4c0878b-9085-4895-95a2-46c863a7d1a7",
-              "parentUUID": "cb75f0be-2e7a-463e-9ee8-ccf87cc447ac",
+              "uuid": "3b222646-09a7-44a8-bea3-77cae89dff62",
+              "parentUUID": "c18ba1e3-b6e5-4a2f-8893-6e50942ce2b9",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "e4c0878b-9085-4895-95a2-46c863a7d1a7"
+            "3b222646-09a7-44a8-bea3-77cae89dff62"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 5440,
+          "duration": 5525,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
