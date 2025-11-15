@@ -12,7 +12,7 @@ class LoginPage {
     }
 
     visit() {
-        const baseUrl = Cypress.env('BASE_URL') || '/';
+        const baseUrl = Cypress.config('baseUrl');
         cy.visit(baseUrl);
     }
 

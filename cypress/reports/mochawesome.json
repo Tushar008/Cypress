@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-11-13T14:31:00.414Z",
-    "end": "2025-11-13T14:31:07.604Z",
-    "duration": 7190,
+    "start": "2025-11-15T10:10:57.576Z",
+    "end": "2025-11-15T10:11:05.550Z",
+    "duration": 7974,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "eca0e39d-4741-4acb-acda-fdb32ab9efa7",
+      "uuid": "8b5c5f8d-5991-4249-b9ca-87db036aad45",
       "title": "",
       "fullFile": "cypress\\e2e\\sauce-demo\\purchase.cy.js",
       "file": "cypress\\e2e\\sauce-demo\\purchase.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "42d28a60-a604-4ed5-ae86-2855a80e40ad",
+          "uuid": "b2fed918-fb5a-41ae-b9df-ea86bf9a5c4c",
           "title": "SauceDemo E2E Purchase Flow",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,29 @@
               "title": "sorts prices, adds the most expensive item, and then removes it and perform checkout",
               "fullTitle": "SauceDemo E2E Purchase Flow sorts prices, adds the most expensive item, and then removes it and perform checkout",
               "timedOut": null,
-              "duration": 7032,
+              "duration": 7815,
               "state": "passed",
               "speed": "medium",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "// Login to saucedemo\npages.loginPage.visit();\npages.loginPage.login(Cypress.env('SAUCE_USERNAME'), Cypress.env('SAUCE_PASSWORD'));\n// sort prices with 'high to low'\npages.inventoryPage.sortBy('Price (high to low)');\n// Verify prices are sorted on the page\npages.inventoryPage.getAllPrices().then(prices => {\n  cy.wrap(prices).as('prices');\n  const sorted = [...prices].sort((a, b) => b - a);\n  cy.wrap(prices).should('deep.equal', sorted);\n});\npages.inventoryPage.addAllItemsToCart();\n// verify total count of the prices (this will also confirm total number of items in cart)\ncy.get('@prices').then(prices => {\n  const total = prices.length;\n  // verify cart icon shows correct count of total item available in cart\n  pages.inventoryPage.getShoppingCartCount().should('eq', total);\n  // Go to cart and verify count\n  pages.inventoryPage.goToCart();\n  pages.cartPage.getCartItemsCount().should('eq', total);\n  // Remove the most expensive item (first item after sorting)\n  pages.inventoryPage.getMostExpensiveName().then(mostExpensiveName => {\n    pages.cartPage.removeItemByName(mostExpensiveName);\n    // verify cart has one less item\n    pages.cartPage.getCartItemsCount().should('eq', total - 1);\n    //  cart icon shows total-1 (or count icon should be absent if zero)\n    if (total - 1 > 0) {\n      pages.inventoryPage.getShoppingCartCount().should('eq', total - 1);\n    } else {\n      cy.get('.shopping_cart_badge').should('not.exist');\n    }\n    // Save cart total for verification at checkout\n    pages.cartPage.saveCartTotal();\n    // Continue to checkout\n    pages.cartPage.proceedToCheckout();\n    // Fill shipping information\n    pages.checkoutPage.fillShippingInfo('Trushar', 'Patel', '12345');\n    // Complete checkout and verify the total matches what was saved\n    pages.checkoutPage.completeCheckoutAndVerifyAmount();\n    // Take screenshot of the confirmation screen\n    cy.get('.complete-header').should('be.visible').then(() => {\n      cy.screenshot('order-confirmation', {\n        capture: 'viewport',\n        overwrite: true\n      });\n    });\n    // Additional verification to ensure we capture the full confirmation state\n    cy.wait(1000); // Small wait to ensure animations complete\n    cy.get('.complete-header').should('have.text', 'Thank you for your order!');\n    cy.get('.complete-text').should('be.visible');\n  });\n});",
+              "code": "// Login to saucedemo\npages.loginPage.visit();\npages.loginPage.login('standard_user', 'secret_sauce');\n// sort prices with 'high to low'\npages.inventoryPage.sortBy('Price (high to low)');\n// Verify prices are sorted on the page\npages.inventoryPage.getAllPrices().then(prices => {\n  cy.wrap(prices).as('prices');\n  const sorted = [...prices].sort((a, b) => b - a);\n  cy.wrap(prices).should('deep.equal', sorted);\n});\npages.inventoryPage.addAllItemsToCart();\n// verify total count of the prices (this will also confirm total number of items in cart)\ncy.get('@prices').then(prices => {\n  const total = prices.length;\n  // verify cart icon shows correct count of total item available in cart\n  pages.inventoryPage.getShoppingCartCount().should('eq', total);\n  // Go to cart and verify count\n  pages.inventoryPage.goToCart();\n  pages.cartPage.getCartItemsCount().should('eq', total);\n  // Remove the most expensive item (first item after sorting)\n  pages.inventoryPage.getMostExpensiveName().then(mostExpensiveName => {\n    pages.cartPage.removeItemByName(mostExpensiveName);\n    // verify cart has one less item\n    pages.cartPage.getCartItemsCount().should('eq', total - 1);\n    //  cart icon shows total-1 (or count icon should be absent if zero)\n    if (total - 1 > 0) {\n      pages.inventoryPage.getShoppingCartCount().should('eq', total - 1);\n    } else {\n      cy.get('.shopping_cart_badge').should('not.exist');\n    }\n    // Save cart total for verification at checkout\n    pages.cartPage.saveCartTotal();\n    // Continue to checkout\n    pages.cartPage.proceedToCheckout();\n    // Fill shipping information\n    pages.checkoutPage.fillShippingInfo('Trushar', 'Patel', '12345');\n    // Complete checkout and verify the total matches what was saved\n    pages.checkoutPage.completeCheckoutAndVerifyAmount();\n    // Take screenshot of the confirmation screen\n    cy.get('.complete-header').should('be.visible').then(() => {\n      cy.screenshot('order-confirmation', {\n        capture: 'viewport',\n        overwrite: true\n      });\n    });\n    // Additional verification to ensure we capture the full confirmation state\n    cy.wait(1000); // Small wait to ensure animations complete\n    cy.get('.complete-header').should('have.text', 'Thank you for your order!');\n    cy.get('.complete-text').should('be.visible');\n  });\n});",
               "err": {},
-              "uuid": "addd20c5-209f-42e1-ad8f-cef7673952c4",
-              "parentUUID": "42d28a60-a604-4ed5-ae86-2855a80e40ad",
+              "uuid": "43057d7f-1f8b-475a-bb28-b9b9bdc2c68d",
+              "parentUUID": "b2fed918-fb5a-41ae-b9df-ea86bf9a5c4c",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "addd20c5-209f-42e1-ad8f-cef7673952c4"
+            "43057d7f-1f8b-475a-bb28-b9b9bdc2c68d"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 7032,
+          "duration": 7815,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

@@ -40,8 +40,8 @@ class CheckoutPage {
         return this.getFinishButton().click();
     }
 
-    verifyOrderAmount(expectedAmount) {
-        this.getSummaryTotal().should('eq', expectedAmount + parseFloat(Cypress.env('TAX_RATE')));
+    verifyOrderAmount(expectedAmount, TAX_RATE = 6.40) {
+        this.getSummaryTotal().should('eq', expectedAmount + TAX_RATE);
     }
 
     completeCheckoutAndVerifyAmount() {

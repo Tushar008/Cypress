@@ -15,7 +15,7 @@ describe('SauceDemo E2E Purchase Flow', () => {
     it.only('sorts prices, adds the most expensive item, and then removes it and perform checkout', () => {
         // Login to saucedemo
         pages.loginPage.visit();
-        pages.loginPage.login(Cypress.env('SAUCE_USERNAME'), Cypress.env('SAUCE_PASSWORD'));
+        pages.loginPage.login('standard_user', 'secret_sauce');
 
         // sort prices with 'high to low'
         pages.inventoryPage.sortBy('Price (high to low)');
